@@ -14,3 +14,18 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { rootMargin: "-35% 0px -55% 0px" });
 sections.forEach(section => observer.observe(section));
+
+fetch("https://9gn16gjpei.execute-api.ap-south-1.amazonaws.com/visitors")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Visitor counter API failed");
+    }
+
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Visitor count:", data.count);
+  })
+  .catch((error) => {
+    console.error("Visitor counter error:", error);
+  });
